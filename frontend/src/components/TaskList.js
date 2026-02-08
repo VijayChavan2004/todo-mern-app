@@ -13,7 +13,7 @@ const TaskList = () => {
 
   const fetchTasks = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/tasks', {
+      const { data } = await axios.get('https://todo-backend-vijay.onrender.com/api/tasks', {
         headers: {
           Authorization: `Bearer ${user.token}`
         }
@@ -26,7 +26,7 @@ const TaskList = () => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${id}`, {
+      await axios.delete(`https://todo-backend-vijay.onrender.com/api/tasks/${id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`
         }
@@ -40,7 +40,7 @@ const TaskList = () => {
   const toggleComplete = async (id, completed) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/tasks/${id}`,
+        `https://todo-backend-vijay.onrender.com/api/tasks/${id}`,
         { completed: !completed },
         {
           headers: {
