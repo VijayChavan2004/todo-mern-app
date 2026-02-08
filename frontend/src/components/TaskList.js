@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import TaskItem from './TaskItem';
@@ -7,11 +7,7 @@ const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  const fetchTasks = async () => {
+  const fetchTasks = useCallback(async () => {
     try {
       const { data } = await axios.get('https://todo-backend-vijay.onrender.com/api/tasks', {
         headers: {
@@ -22,7 +18,11 @@ const TaskList = () => {
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
-  };
+  }, [user.token]);
+
+  useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
 
   const deleteTask = async (id) => {
     try {
